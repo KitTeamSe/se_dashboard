@@ -33,10 +33,14 @@ const [
 // Action Creators
 export const initialize = createAction(INITIALIZE);
 export const initializeField = createAction(INITIALIZE_FIELD);
-export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
-  key,
-  value
-}));
+export const changeField = createAction(
+  CHANGE_FIELD,
+  ({ form, key, value }) => ({
+    form,
+    key,
+    value
+  })
+);
 export const changeSelect = createAction(CHANGE_SELECT, ({ select }) => ({
   select
 }));
@@ -102,9 +106,22 @@ export function* accountSaga() {
 // reducer (handleActions => switch문 대체)
 const initialState = {
   account: {
-    multipartFile: [],
-    postId: '',
-    replyId: ''
+    updateForm: {
+      id: '',
+      informationOpenAgree: '',
+      name: '',
+      nickname: '',
+      password: '',
+      studentId: ''
+    },
+    searchForm: {
+      email: '',
+      name: '',
+      nickname: '',
+      phoneNumber: '',
+      studentId: '',
+      type: ''
+    }
   },
   select: [],
   loadAccount: reducerUtils.initial(),
@@ -124,9 +141,9 @@ export default handleActions(
         replyId: ''
       }
     }),
-    [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, draft => {
-        draft.account[key] = value;
+        draft.account[form][key] = value;
       }),
     [CHANGE_SELECT]: (state, { payload: { select } }) => ({
       ...state,
