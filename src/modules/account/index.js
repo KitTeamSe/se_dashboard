@@ -50,7 +50,7 @@ export const loadAccount = createAction(LOAD_ACCOUNT, ({ id, token }) => ({
 }));
 export const loadAccountList = createAction(
   LOAD_ACCOUNT_LIST,
-  ({ direction, page, size, token }) => ({ direction, page, size, token })
+  ({ direction, page, size }) => ({ direction, page, size })
 );
 export const updateAccount = createAction(
   UPDATE_ACCOUNT,
