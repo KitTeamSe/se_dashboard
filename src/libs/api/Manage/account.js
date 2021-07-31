@@ -9,6 +9,10 @@ export const getAccountList = ({ direction, page, size }) => {
   return client
     .get(`${URL}?${queryString}`, tokenHeader(token))
     .catch(error => {
+      if (error.response.data.code === 'GE05') {
+        localStorage.clear();
+        window.location.reload(true);
+      }
       throw error.response.data;
     });
 };
