@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+import AccountTableContainer from '../containers/Account/Table/AccountTableContainer';
 
 const drawerWidth = 0;
 const drawerHeight = 0;
@@ -28,8 +29,7 @@ const TestPageMain = () => (
     <Wrapper />
     <ContentWrapper>
       <ButtonWrapper />
-      <h1>메인입니다</h1>
-      <Link to="account">회원목록</Link>
+      <AccountTableContainer />
     </ContentWrapper>
   </>
 );
