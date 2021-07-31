@@ -26,10 +26,10 @@ const Router = ({ exact, to, children }) => (
 const Routers = () => (
   <>
     <Router exact to="">
-      <TestPageMain />
-    </Router>
-    <Router exact to="login">
       <TestPageLogin />
+    </Router>
+    <Router exact to="account">
+      <TestPageMain />
     </Router>
   </>
 );

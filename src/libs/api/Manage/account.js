@@ -9,7 +9,7 @@ export const getAccountList = ({ direction, page, size }) => {
   return client
     .get(`${URL}?${queryString}`, tokenHeader(token))
     .catch(error => {
-      throw error;
+      throw error.response.data;
     });
 };
 
