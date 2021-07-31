@@ -6,9 +6,11 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
 import createSagaMiddleware from 'redux-saga';
+import { ThemeProvider } from 'styled-components';
 
 import './styles/reset.css';
 import App from './App';
+import theme from './styles/theme';
 import rootReducer, { rootSaga } from './modules';
 import reportWebVitals from './reportWebVitals';
 
@@ -29,9 +31,11 @@ ReactDOM.render(
   <React.StrictMode>
     <StylesProvider injectFirst>
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
       </Provider>
     </StylesProvider>
   </React.StrictMode>,
