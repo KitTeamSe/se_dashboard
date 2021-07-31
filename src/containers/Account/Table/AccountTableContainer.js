@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 import qs from 'qs';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAccountList, changeSelect } from '../../../modules/account';
+import {
+  loadAccountList,
+  searchAccountList,
+  changeSelect
+} from '../../../modules/account';
 
 import AccountTable from '../../../components/Account/Table/AccountTable';
-import Pagination from '../../../components/Pagination/Pagination';
 
 const AccountTableContainer = ({ location }) => {
-  const link = 'account';
   const dispatch = useDispatch();
   const { data, loading, error, select } = useSelector(({ account }) => ({
+    search: account.account.searchForm,
     data: account.loadAccountList.data,
     loading: account.loadAccountList.loading,
     error: account.loadAccountList.error,
@@ -49,10 +52,45 @@ const AccountTableContainer = ({ location }) => {
   const isSelected = id => select.indexOf(id) !== -1;
 
   useEffect(() => {
-    const { direction, size } = { direction: 'ASC', size: 15 };
-    const { page = 1 } = qs.parse(location.search, { ignoreQueryPrefix: true });
-    dispatch(loadAccountList({ direction, size, page }));
+    const {
+      direction = 'ASC',
+      size = 15,
+      page = 1,
+      email,
+      name,
+      nickname,
+      phoneNumber,
+      studentId,
+      type
+    } = qs.parse(location.search, { ignoreQueryPrefix: true });
+
     dispatch(changeSelect({ select: [] }));
+    if (email || name || nickname || phoneNumber || studentId || type) {
+      const pageRequest = {
+        direction,
+        size: parseInt(size, 10),
+        page: parseInt(page, 10)
+      };
+
+      return dispatch(
+        searchAccountList({
+          email,
+          name,
+          nickname,
+          phoneNumber: parseInt(phoneNumber, 10),
+          studentId: parseInt(studentId, 10),
+          type,
+          pageRequest
+        })
+      );
+    }
+    return dispatch(
+      loadAccountList({
+        direction,
+        size: parseInt(size, 10),
+        page: parseInt(page, 10)
+      })
+    );
   }, [dispatch, location.search]);
 
   return (
@@ -65,11 +103,6 @@ const AccountTableContainer = ({ location }) => {
         handleSelect={handleSelect}
         handleSelectAll={handleSelectAll}
         isSelected={isSelected}
-      />
-      <Pagination
-        totalPage={data ? data.data.totalPages : 1}
-        page={data ? data.data.pageable.pageNumber + 1 : 1}
-        link={link}
       />
     </>
   );

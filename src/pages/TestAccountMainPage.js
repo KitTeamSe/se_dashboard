@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import AccountTableContainer from '../containers/Account/Table/AccountTableContainer';
 import AccountDeleteContainer from '../containers/Account/Table/AccountDeleteContainer';
+import AccountPaginationContainer from '../containers/Account/Table/AccountPaginationContainer';
 
 const drawerWidth = 0;
 const drawerHeight = 0;
@@ -33,6 +35,8 @@ const TestPageMain = () => (
         <AccountDeleteContainer />
       </ButtonWrapper>
       <AccountTableContainer />
+      <AccountPaginationContainer />
+      <Link to="/">메인으로</Link>
     </ContentWrapper>
   </>
 );

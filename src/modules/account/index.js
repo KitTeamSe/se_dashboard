@@ -28,7 +28,7 @@ const [
   SEARCH_ACCOUNT_LIST,
   SEARCH_ACCOUNT_LIST_SUCCESS,
   SEARCH_ACCOUNT_LIST_FAILURE
-] = createRequestActionTypes('account/SEARCH_ACCOUNT_LIST_LIST');
+] = createRequestActionTypes('account/SEARCH_ACCOUNT_LIST');
 
 // Action Creators
 export const initialize = createAction(INITIALIZE);
@@ -77,8 +77,14 @@ export const removeAccount = createAction(REMOVE_ACCOUNT, ({ id }) => ({
 }));
 export const searchAccountList = createAction(
   SEARCH_ACCOUNT_LIST,
-  ({ id }) => ({
-    id
+  ({ name, nickname, email, studentId, phoneNumber, type, pageRequest }) => ({
+    name,
+    nickname,
+    email,
+    studentId,
+    phoneNumber,
+    type,
+    pageRequest
   })
 );
 
@@ -89,9 +95,9 @@ const loadAccountListSaga = createRequestSaga(
   api.getAccountList
 );
 const updateAccountSaga = createRequestSaga(REMOVE_ACCOUNT, api.updateAccount);
-const removeAccountSaga = createRequestSaga(REMOVE_ACCOUNT, api.removeAccount);
+const removeAccountSaga = createRequestSaga(UPDATE_ACCOUNT, api.removeAccount);
 const searchAccountListSaga = createRequestSaga(
-  REMOVE_ACCOUNT,
+  SEARCH_ACCOUNT_LIST,
   api.searchAccountList
 );
 
@@ -115,11 +121,11 @@ const initialState = {
       studentId: ''
     },
     searchForm: {
-      email: '',
       name: '',
       nickname: '',
-      phoneNumber: '',
+      email: '',
       studentId: '',
+      phoneNumber: '',
       type: ''
     }
   },
@@ -190,15 +196,15 @@ export default handleActions(
 
     [UPDATE_ACCOUNT]: state => ({
       ...state,
-      loadPostAccountList: reducerUtils.loading(state.updateAccount.data)
+      updateAccount: reducerUtils.loading(state.updateAccount.data)
     }),
     [UPDATE_ACCOUNT_SUCCESS]: (state, { payload: update }) => ({
       ...state,
-      loadPostAccountList: reducerUtils.success(update)
+      updateAccount: reducerUtils.success(update)
     }),
     [UPDATE_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      loadPostAccountList: reducerUtils.error(error)
+      updateAccount: reducerUtils.error(error)
     }),
 
     [SEARCH_ACCOUNT_LIST]: state => ({

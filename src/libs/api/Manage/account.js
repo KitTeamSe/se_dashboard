@@ -61,12 +61,12 @@ export const searchAccountList = ({
   email,
   studentId,
   phoneNumber,
-  accountType,
-  pageRequest,
-  token
-}) =>
-  client
-    .delete(
+  type,
+  pageRequest
+}) => {
+  const token = localStorage.getItem('token');
+  return client
+    .post(
       `${URL}/search`,
       {
         name,
@@ -74,11 +74,12 @@ export const searchAccountList = ({
         email,
         studentId,
         phoneNumber,
-        accountType,
+        type,
         pageRequest
       },
       tokenHeader(token)
     )
     .catch(error => {
-      throw error;
+      throw error.response.data;
     });
+};
