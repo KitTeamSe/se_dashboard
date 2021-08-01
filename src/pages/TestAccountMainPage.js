@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import AccountTableContainer from '../containers/Account/Table/AccountTableContainer';
 import AccountDeleteContainer from '../containers/Account/Table/AccountDeleteContainer';
 import AccountPaginationContainer from '../containers/Account/Table/AccountPaginationContainer';
+import AccountSearchContainer from '../containers/Account/Table/AccountSearchContainer';
 
 const drawerWidth = 0;
 const drawerHeight = 0;
@@ -36,6 +37,8 @@ const TestPageMain = () => (
       </ButtonWrapper>
       <AccountTableContainer />
       <AccountPaginationContainer />
+      <AccountSearchContainer />
+
       <Link to="/">메인으로</Link>
     </ContentWrapper>
   </>

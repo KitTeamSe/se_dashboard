@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   loadAccountList,
   searchAccountList,
+  changeSearch,
   changeSelect
 } from '../../../modules/account';
 
@@ -56,15 +57,18 @@ const AccountTableContainer = ({ location }) => {
       direction = 'ASC',
       size = 15,
       page = 1,
-      email,
-      name,
-      nickname,
-      phoneNumber,
-      studentId,
-      type
+      email = '',
+      name = '',
+      nickname = '',
+      phoneNumber = '',
+      studentId = '',
+      type = null
     } = qs.parse(location.search, { ignoreQueryPrefix: true });
 
     dispatch(changeSelect({ select: [] }));
+    dispatch(
+      changeSearch({ email, name, nickname, phoneNumber, studentId, type })
+    );
     if (email || name || nickname || phoneNumber || studentId || type) {
       const pageRequest = {
         direction,
@@ -77,8 +81,8 @@ const AccountTableContainer = ({ location }) => {
           email,
           name,
           nickname,
-          phoneNumber: parseInt(phoneNumber, 10),
-          studentId: parseInt(studentId, 10),
+          phoneNumber,
+          studentId,
           type,
           pageRequest
         })

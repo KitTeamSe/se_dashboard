@@ -13,41 +13,14 @@ import {
   Typography
 } from '@material-ui/core';
 
+import { accountData, informationOpenAgreeEnum, typeEnum } from './AccountData';
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px;
   color: #ff0000;
 `;
-
-const accountData = {
-  accountId: 'PK',
-  idString: 'ID',
-  name: '이름',
-  nickname: '닉네임',
-  email: '이메일',
-  type: '타입',
-  phoneNumber: '전화번호',
-  studentId: '학번',
-  informationOpenAgree: '정보공유동의',
-  lastSignInIp: '최근접속IP'
-};
-
-const accountDataValues = Object.values(accountData);
-const accountDataKeys = Object.keys(accountData);
-
-const informationOpenAgreeEnum = {
-  AGREE: '🟢',
-  DISAGREE: '🔴'
-};
-
-const typeEnum = {
-  STUDENT: '학생',
-  PROFESSOR: '교수',
-  ASSISTANT: '조교',
-  OUTSIDER: '외부인',
-  ANONYMOUS: '익명'
-};
 
 const AccountTableHead = props => {
   const { dataCount, selectCount, handleSelectAll } = props;
@@ -61,8 +34,8 @@ const AccountTableHead = props => {
             onChange={handleSelectAll}
           />
         </TableCell>
-        {accountDataValues.map(value => (
-          <TableCell>{value}</TableCell>
+        {accountData.map(e => (
+          <TableCell>{e.name}</TableCell>
         ))}
       </TableRow>
     </TableHead>
@@ -92,16 +65,16 @@ const AccountTableBody = props => {
                     onClick={event => handleSelect(event, e.idString)}
                   />
                 </TableCell>
-                {accountDataKeys.map(key => {
-                  if (key === 'type')
-                    return <TableCell>{handleType(e[key])}</TableCell>;
-                  if (key === 'informationOpenAgree')
+                {accountData.map(account => {
+                  if (account.key === 'type')
+                    return <TableCell>{handleType(e[account.key])}</TableCell>;
+                  if (account.key === 'informationOpenAgree')
                     return (
                       <TableCell>
-                        {handleInformationOpenAgree(e[key])}
+                        {handleInformationOpenAgree(e[account.key])}
                       </TableCell>
                     );
-                  return <TableCell>{e[key]}</TableCell>;
+                  return <TableCell>{e[account.key]}</TableCell>;
                 })}
               </TableRow>
             );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import AccountPagination from '../../../components/Account/Table/AccountPagination';
@@ -16,7 +15,7 @@ const AccountPaginationContainer = () => {
   return (
     <>
       <AccountPagination
-        totalPage={data ? data.data.totalPages : 1}
+        totalPage={data && data.data.totalPages ? data.data.totalPages : 1}
         page={data ? data.data.pageable.pageNumber + 1 : 1}
         email={isProperty('email') && search.email}
         name={isProperty('name') && search.name}
@@ -30,4 +29,4 @@ const AccountPaginationContainer = () => {
   );
 };
 
-export default withRouter(AccountPaginationContainer);
+export default AccountPaginationContainer;

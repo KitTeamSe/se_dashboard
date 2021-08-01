@@ -12,6 +12,7 @@ import reducerUtils from '../../libs/reducerUtils';
 const INITIALIZE = 'account/INITIALIZE';
 const INITIALIZE_FIELD = 'account/INITIALIZE_FIELD';
 const CHANGE_FIELD = 'account/CHANGE_FIELD';
+const CHANGE_SEARCH = 'account/CHANGE_SEARCH';
 const CHANGE_SELECT = 'account/CHANGE_SELECT';
 const [LOAD_ACCOUNT, LOAD_ACCOUNT_SUCCESS, LOAD_ACCOUNT_FAILURE] =
   createRequestActionTypes('account/LOAD_ACCOUNT');
@@ -39,6 +40,17 @@ export const changeField = createAction(
     form,
     key,
     value
+  })
+);
+export const changeSearch = createAction(
+  CHANGE_SEARCH,
+  ({ name, nickname, email, studentId, phoneNumber, type }) => ({
+    name,
+    nickname,
+    email,
+    studentId,
+    phoneNumber,
+    type
   })
 );
 export const changeSelect = createAction(CHANGE_SELECT, ({ select }) => ({
@@ -142,15 +154,46 @@ export default handleActions(
     [INITIALIZE_FIELD]: state => ({
       ...state,
       account: {
-        multipartFile: [],
-        postId: '',
-        replyId: ''
+        updateForm: {
+          id: '',
+          informationOpenAgree: '',
+          name: '',
+          nickname: '',
+          password: '',
+          studentId: ''
+        },
+        searchForm: {
+          name: '',
+          nickname: '',
+          email: '',
+          studentId: '',
+          phoneNumber: '',
+          type: null
+        }
       }
     }),
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, draft => {
         draft.account[form][key] = value;
       }),
+    [CHANGE_SEARCH]: (
+      state,
+      { payload: { name, nickname, email, studentId, phoneNumber, type } }
+    ) => ({
+      ...state,
+      account: {
+        updateForm: state.account.updateForm,
+        searchForm: {
+          ...state.account.searchForm,
+          name,
+          nickname,
+          email,
+          studentId,
+          phoneNumber,
+          type
+        }
+      }
+    }),
     [CHANGE_SELECT]: (state, { payload: { select } }) => ({
       ...state,
       select
