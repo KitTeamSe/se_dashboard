@@ -83,13 +83,13 @@ const AccountTableBody = props => {
     <TableBody>
       {!loading && data
         ? data.map(e => {
-            const selected = isSelected(e.accountId);
+            const selected = isSelected(e.idString);
             return (
               <TableRow key={`account-${e.accountId}`}>
                 <TableCell padding="checkbox">
                   <Checkbox
                     checked={selected}
-                    onClick={event => handleSelect(event, e.accountId)}
+                    onClick={event => handleSelect(event, e.idString)}
                   />
                 </TableCell>
                 {accountDataKeys.map(key => {

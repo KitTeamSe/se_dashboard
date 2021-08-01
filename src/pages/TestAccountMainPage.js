@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import AccountTableContainer from '../containers/Account/Table/AccountTableContainer';
+import AccountDeleteContainer from '../containers/Account/Table/AccountDeleteContainer';
 
 const drawerWidth = 0;
 const drawerHeight = 0;
@@ -28,7 +29,9 @@ const TestPageMain = () => (
   <>
     <Wrapper />
     <ContentWrapper>
-      <ButtonWrapper />
+      <ButtonWrapper>
+        <AccountDeleteContainer />
+      </ButtonWrapper>
       <AccountTableContainer />
     </ContentWrapper>
   </>

@@ -48,10 +48,12 @@ export const updateAccount = ({
       throw error;
     });
 
-export const removeAccount = ({ id, token }) =>
-  client.delete(`${URL}/${id}`, tokenHeader(token)).catch(error => {
-    throw error;
+export const removeAccount = ({ id }) => {
+  const token = localStorage.getItem('token');
+  return client.delete(`${URL}/${id}`, tokenHeader(token)).catch(error => {
+    throw error.response.data;
   });
+};
 
 export const searchAccountList = ({
   name,

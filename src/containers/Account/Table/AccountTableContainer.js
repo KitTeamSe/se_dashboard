@@ -39,7 +39,7 @@ const AccountTableContainer = ({ location }) => {
 
   const handleSelectAll = event => {
     if (event.target.checked) {
-      const newSelects = data.data.content.map(e => e.accountId);
+      const newSelects = data.data.content.map(e => e.idString);
       dispatch(changeSelect({ select: newSelects }));
       return;
     }
