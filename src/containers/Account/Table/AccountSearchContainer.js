@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
 import { withRouter } from 'react-router-dom';
@@ -7,7 +7,7 @@ import AccountSearch from '../../../components/Account/Table/AccountSearch';
 import { changeField, initializeField } from '../../../modules/account';
 
 const AccountSearchContainer = props => {
-  const { history, location } = props;
+  const { history } = props;
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -60,10 +60,6 @@ const AccountSearchContainer = props => {
   };
 
   const isProperty = key => Object.prototype.hasOwnProperty.call(search, key);
-
-  useEffect(() => {
-    console.log(qs.parse(location.search, { ignoreQueryPrefix: true }));
-  }, []);
 
   return (
     <AccountSearch
