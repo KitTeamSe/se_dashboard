@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
 import { withRouter } from 'react-router-dom';
 
-import AccountSearch from '../../../components/Account/Table/AccountSearch';
-import { changeField, initializeField } from '../../../modules/account';
+import AccountSearch from '../../components/Account/AccountSearch';
+import { changeField, initializeField } from '../../modules/account';
 
 const AccountSearchContainer = props => {
   const { history } = props;

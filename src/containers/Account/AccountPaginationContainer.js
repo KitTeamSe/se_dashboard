@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import AccountPagination from '../../../components/Account/Table/AccountPagination';
+import AccountPagination from '../../components/Account/AccountPagination';
 
 const AccountPaginationContainer = () => {
   const link = 'account';

@@ -7,9 +7,9 @@ import {
   searchAccountList,
   changeSearch,
   changeSelect
-} from '../../../modules/account';
+} from '../../modules/account';
 
-import AccountTable from '../../../components/Account/Table/AccountTable';
+import AccountTable from '../../components/Account/AccountTable';
 
 const AccountTableContainer = ({ location }) => {
   const dispatch = useDispatch();

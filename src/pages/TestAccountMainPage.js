@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import AccountTableContainer from '../containers/Account/Table/AccountTableContainer';
-import AccountDeleteContainer from '../containers/Account/Table/AccountDeleteContainer';
-import AccountPaginationContainer from '../containers/Account/Table/AccountPaginationContainer';
-import AccountSearchContainer from '../containers/Account/Table/AccountSearchContainer';
+import AccountTableContainer from '../containers/Account/AccountTableContainer';
+import AccountDeleteContainer from '../containers/Account/AccountDeleteContainer';
+import AccountPaginationContainer from '../containers/Account/AccountPaginationContainer';
+import AccountSearchContainer from '../containers/Account/AccountSearchContainer';
 
 const drawerWidth = 0;
 const drawerHeight = 0;
