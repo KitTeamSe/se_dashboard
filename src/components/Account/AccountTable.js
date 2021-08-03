@@ -22,6 +22,11 @@ const Wrapper = styled.div`
   color: #ff0000;
 `;
 
+const TableRowStyled = styled(TableRow)`
+  cursor: pointer;
+  text-decoration: none;
+`;
+
 const AccountTableHead = props => {
   const { dataCount, selectCount, handleSelectAll } = props;
   return (
@@ -43,13 +48,19 @@ const AccountTableHead = props => {
 };
 
 const AccountTableBody = props => {
-  const { data, loading, handleSelect, isSelected } = props;
+  const { data, loading, handleSelect, handleUpdateId, isSelected } = props;
 
   const handleType = type => {
     return typeEnum[type];
   };
   const handleInformationOpenAgree = informationOpenAgree => {
     return informationOpenAgreeEnum[informationOpenAgree];
+  };
+  const handleCellText = (element, key) => {
+    if (key === 'type') return handleType(element[key]);
+    if (key === 'informationOpenAgree')
+      return handleInformationOpenAgree(element[key]);
+    return element[key];
   };
 
   return (
@@ -58,25 +69,20 @@ const AccountTableBody = props => {
         ? data.map(e => {
             const selected = isSelected(e.idString);
             return (
-              <TableRow key={`account-${e.accountId}`}>
+              <TableRowStyled key={`account-${e.accountId}`}>
                 <TableCell padding="checkbox">
                   <Checkbox
                     checked={selected}
-                    onClick={event => handleSelect(event, e.idString)}
+                    id={e.idString}
+                    onClick={handleSelect}
                   />
                 </TableCell>
-                {accountData.map(account => {
-                  if (account.key === 'type')
-                    return <TableCell>{handleType(e[account.key])}</TableCell>;
-                  if (account.key === 'informationOpenAgree')
-                    return (
-                      <TableCell>
-                        {handleInformationOpenAgree(e[account.key])}
-                      </TableCell>
-                    );
-                  return <TableCell>{e[account.key]}</TableCell>;
-                })}
-              </TableRow>
+                {accountData.map(account => (
+                  <TableCell id={e.idString} onClick={handleUpdateId}>
+                    {handleCellText(e, account.key)}
+                  </TableCell>
+                ))}
+              </TableRowStyled>
             );
           })
         : null}
@@ -114,9 +120,10 @@ const AccountTable = props => {
     loading,
     error,
     handleSelect,
-    select,
     handleSelectAll,
-    isSelected
+    handleUpdateId,
+    isSelected,
+    select
   } = props;
 
   return (
@@ -131,6 +138,7 @@ const AccountTable = props => {
           data={data}
           loading={loading}
           handleSelect={handleSelect}
+          handleUpdateId={handleUpdateId}
           isSelected={isSelected}
         />
       </Table>

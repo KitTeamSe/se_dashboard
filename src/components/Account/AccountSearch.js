@@ -81,8 +81,8 @@ const SearchItem = props => {
 };
 
 const SearchInfo = props => {
-  const { name, studentId, nickname, email, phoneNumber, type, handleOpen } =
-    props;
+  const { search, handleOpen } = props;
+  const { name, studentId, nickname, email, phoneNumber, type } = search;
 
   return (
     <ChipWrapper onClick={handleOpen} elevation={0} component="ul">
@@ -106,10 +106,10 @@ const SearchInfo = props => {
 
 const SearchInput = props => {
   const { id, name, value, onChange, type, children } = props;
+
   const handleProps = () => {
     if (type === 'select')
       return { select: true, SelectProps: { native: true } };
-    if (type === 'number') return null;
     return null;
   };
 
@@ -132,8 +132,8 @@ const SearchInput = props => {
 };
 
 const SearchContent = props => {
-  const { name, studentId, nickname, email, phoneNumber, type, onChange } =
-    props;
+  const { search, onChange } = props;
+  const { name, studentId, nickname, email, phoneNumber, type } = search;
 
   return (
     <DialogContentStyled>
@@ -186,12 +186,7 @@ const SearchAction = props => {
 
   return (
     <DialogActions>
-      <Button
-        variant="outlined"
-        color="secondary"
-        type="submit"
-        onClick={onReset}
-      >
+      <Button variant="outlined" color="secondary" onClick={onReset}>
         초기화
       </Button>
       <Button variant="contained" color="secondary" type="submit">
@@ -202,31 +197,11 @@ const SearchAction = props => {
 };
 
 const AccountSearch = props => {
-  const {
-    name,
-    studentId,
-    nickname,
-    email,
-    phoneNumber,
-    type,
-    open,
-    onChange,
-    onSubmit,
-    onReset,
-    handleOpen
-  } = props;
+  const { search, open, onChange, onSubmit, onReset, handleOpen } = props;
 
   return (
     <Wrapper>
-      <SearchInfo
-        name={name}
-        studentId={studentId}
-        nickname={nickname}
-        email={email}
-        phoneNumber={phoneNumber}
-        type={type}
-        handleOpen={handleOpen}
-      />
+      <SearchInfo search={search} handleOpen={handleOpen} />
       <RoundButton variant="contained" color="secondary" onClick={handleOpen}>
         검색
       </RoundButton>
@@ -239,15 +214,7 @@ const AccountSearch = props => {
       >
         <DialogTitle>검색 설정</DialogTitle>
         <form onSubmit={onSubmit}>
-          <SearchContent
-            name={name}
-            studentId={studentId}
-            nickname={nickname}
-            email={email}
-            phoneNumber={phoneNumber}
-            type={type}
-            onChange={onChange}
-          />
+          <SearchContent search={search} onChange={onChange} />
           <SearchAction onReset={onReset} />
         </form>
       </Dialog>

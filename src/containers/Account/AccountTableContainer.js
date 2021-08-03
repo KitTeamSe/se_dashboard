@@ -5,23 +5,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   loadAccountList,
   searchAccountList,
+  changeField,
   changeSearch,
-  changeSelect
+  changeSelect,
+  loadAccount
 } from '../../modules/account';
 
 import AccountTable from '../../components/Account/AccountTable';
 
 const AccountTableContainer = ({ location }) => {
   const dispatch = useDispatch();
-  const { data, loading, error, select } = useSelector(({ account }) => ({
-    search: account.account.searchForm,
-    data: account.loadAccountList.data,
-    loading: account.loadAccountList.loading,
-    error: account.loadAccountList.error,
-    select: account.select
-  }));
+  const { data, loading, error, remove, update, select } = useSelector(
+    ({ account }) => ({
+      search: account.account.searchForm,
+      data: account.loadAccountList.data,
+      loading: account.loadAccountList.loading,
+      error: account.loadAccountList.error,
+      remove: account.removeAccount.data,
+      update: account.updateAccount.data,
+      select: account.select
+    })
+  );
 
-  const handleSelect = (event, id) => {
+  const handleSelect = event => {
+    const { id } = event.target;
     const selectIndex = select.indexOf(id);
     let newSelect = [];
 
@@ -50,6 +57,18 @@ const AccountTableContainer = ({ location }) => {
     dispatch(changeSelect({ select: [] }));
   };
 
+  const handleUpdateId = event => {
+    const { id } = event.target;
+    dispatch(
+      changeField({
+        form: 'updateForm',
+        key: 'id',
+        value: id
+      })
+    );
+    dispatch(loadAccount({ id }));
+  };
+
   const isSelected = id => select.indexOf(id) !== -1;
 
   useEffect(() => {
@@ -69,6 +88,7 @@ const AccountTableContainer = ({ location }) => {
     dispatch(
       changeSearch({ email, name, nickname, phoneNumber, studentId, type })
     );
+
     if (email || name || nickname || phoneNumber || studentId || type) {
       const pageRequest = {
         direction,
@@ -95,7 +115,7 @@ const AccountTableContainer = ({ location }) => {
         page: parseInt(page, 10)
       })
     );
-  }, [dispatch, location.search]);
+  }, [dispatch, location.search, update, remove]);
 
   return (
     <>
@@ -106,6 +126,7 @@ const AccountTableContainer = ({ location }) => {
         select={select}
         handleSelect={handleSelect}
         handleSelectAll={handleSelectAll}
+        handleUpdateId={handleUpdateId}
         isSelected={isSelected}
       />
     </>

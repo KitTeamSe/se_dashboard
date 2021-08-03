@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Typography } from '@material-ui/core';
 import AccountTableContainer from '../containers/Account/AccountTableContainer';
+import AccountUpdateContainer from '../containers/Account/AccountUpdateContainer';
 import AccountDeleteContainer from '../containers/Account/AccountDeleteContainer';
 import AccountPaginationContainer from '../containers/Account/AccountPaginationContainer';
 import AccountSearchContainer from '../containers/Account/AccountSearchContainer';
@@ -38,8 +40,10 @@ const TestPageMain = () => (
       <AccountTableContainer />
       <AccountPaginationContainer />
       <AccountSearchContainer />
-
-      <Link to="/">메인으로</Link>
+      <AccountUpdateContainer />
+      <Typography>
+        <Link to="/">메인으로</Link>
+      </Typography>
     </ContentWrapper>
   </>
 );

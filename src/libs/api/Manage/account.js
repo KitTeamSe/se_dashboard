@@ -18,23 +18,40 @@ export const getAccountList = ({ direction, page, size }) => {
     });
 };
 
-export const getAccount = ({ id, token }) =>
-  client.get(`${URL}/${id}`, tokenHeader(token)).catch(error => {
-    throw error;
-  });
+export const getAccount = ({ id }) => {
+  const token = localStorage.getItem('token');
 
-export const updateAccount = ({ id, name, nickname, password, studentId }) => {
+  return client.get(`${URL}/${id}`, tokenHeader(token)).catch(error => {
+    if (error.response.data.code === 'GE05') {
+      localStorage.clear();
+      window.location.reload(true);
+    }
+    throw error.response.data;
+  });
+};
+
+export const updateAccount = ({
+  id,
+  name,
+  nickname,
+  studentId,
+  password,
+  informationOpenAgree,
+  type
+}) => {
   const token = localStorage.getItem('token');
   const parameter = {
     id,
     name,
     nickname,
+    studentId,
     password,
-    studentId
+    informationOpenAgree,
+    type
   };
 
   return client.put(`${URL}`, parameter, tokenHeader(token)).catch(error => {
-    throw error;
+    throw error.response.data;
   });
 };
 

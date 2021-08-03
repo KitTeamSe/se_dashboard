@@ -11,9 +11,11 @@ import reducerUtils from '../../libs/reducerUtils';
 // Actions
 const INITIALIZE = 'account/INITIALIZE';
 const INITIALIZE_FIELD = 'account/INITIALIZE_FIELD';
+const INITIALIZE_UPDATE = 'account/INITIALIZE_UPDATE';
 const CHANGE_FIELD = 'account/CHANGE_FIELD';
 const CHANGE_SEARCH = 'account/CHANGE_SEARCH';
 const CHANGE_SELECT = 'account/CHANGE_SELECT';
+const CHANGE_UPDATE = 'account/CHANGE_UPDATE';
 const [LOAD_ACCOUNT, LOAD_ACCOUNT_SUCCESS, LOAD_ACCOUNT_FAILURE] =
   createRequestActionTypes('account/LOAD_ACCOUNT');
 const [
@@ -34,6 +36,7 @@ const [
 // Action Creators
 export const initialize = createAction(INITIALIZE);
 export const initializeField = createAction(INITIALIZE_FIELD);
+export const initializeUpdate = createAction(INITIALIZE_UPDATE);
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
@@ -53,12 +56,22 @@ export const changeSearch = createAction(
     type
   })
 );
+export const changeUpdate = createAction(
+  CHANGE_UPDATE,
+  ({ id, name, nickname, studentId, informationOpenAgree, type }) => ({
+    id,
+    name,
+    nickname,
+    studentId,
+    informationOpenAgree,
+    type
+  })
+);
 export const changeSelect = createAction(CHANGE_SELECT, ({ select }) => ({
   select
 }));
-export const loadAccount = createAction(LOAD_ACCOUNT, ({ id, token }) => ({
-  id,
-  token
+export const loadAccount = createAction(LOAD_ACCOUNT, ({ id }) => ({
+  id
 }));
 export const loadAccountList = createAction(
   LOAD_ACCOUNT_LIST,
@@ -68,20 +81,20 @@ export const updateAccount = createAction(
   UPDATE_ACCOUNT,
   ({
     id,
-    informationOpenAgree,
     name,
     nickname,
-    password,
     studentId,
-    token
+    password,
+    informationOpenAgree,
+    type
   }) => ({
     id,
-    informationOpenAgree,
     name,
     nickname,
-    password,
     studentId,
-    token
+    password,
+    informationOpenAgree,
+    type
   })
 );
 export const removeAccount = createAction(REMOVE_ACCOUNT, ({ id }) => ({
@@ -106,8 +119,8 @@ const loadAccountListSaga = createRequestSaga(
   LOAD_ACCOUNT_LIST,
   api.getAccountList
 );
-const updateAccountSaga = createRequestSaga(REMOVE_ACCOUNT, api.updateAccount);
-const removeAccountSaga = createRequestSaga(UPDATE_ACCOUNT, api.removeAccount);
+const updateAccountSaga = createRequestSaga(UPDATE_ACCOUNT, api.updateAccount);
+const removeAccountSaga = createRequestSaga(REMOVE_ACCOUNT, api.removeAccount);
 const searchAccountListSaga = createRequestSaga(
   SEARCH_ACCOUNT_LIST,
   api.searchAccountList
@@ -138,7 +151,7 @@ const initialState = {
       email: '',
       studentId: '',
       phoneNumber: '',
-      type: ''
+      type: null
     }
   },
   select: [],
@@ -172,6 +185,22 @@ export default handleActions(
         }
       }
     }),
+    [INITIALIZE_UPDATE]: state => ({
+      ...state,
+      account: {
+        updateForm: {
+          id: '',
+          informationOpenAgree: '',
+          name: '',
+          nickname: '',
+          password: '',
+          studentId: ''
+        },
+        searchForm: {
+          ...state.account.searchForm
+        }
+      }
+    }),
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, draft => {
         draft.account[form][key] = value;
@@ -192,6 +221,23 @@ export default handleActions(
           phoneNumber,
           type
         }
+      }
+    }),
+    [CHANGE_UPDATE]: (
+      state,
+      { payload: { id, name, nickname, studentId, informationOpenAgree, type } }
+    ) => ({
+      ...state,
+      account: {
+        updateForm: {
+          id,
+          name,
+          nickname,
+          studentId,
+          informationOpenAgree,
+          type
+        },
+        searchForm: state.account.searchForm
       }
     }),
     [CHANGE_SELECT]: (state, { payload: { select } }) => ({
