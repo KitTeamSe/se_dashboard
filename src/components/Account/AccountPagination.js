@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import qs from 'qs';
 import { Link } from 'react-router-dom';
 import { Pagination as Paginations, PaginationItem } from '@material-ui/lab';
 
@@ -11,7 +12,30 @@ const PaginationStyled = styled(Paginations)`
 `;
 
 const Pagination = props => {
-  const { totalPage, page, link, onChange } = props;
+  const {
+    totalPage,
+    page,
+    name,
+    studentId,
+    nickname,
+    email,
+    phoneNumber,
+    type,
+    link,
+    onChange
+  } = props;
+
+  const handleLink = item => {
+    const items = {};
+    if (name) items.name = name;
+    if (studentId) items.studentId = studentId;
+    if (nickname) items.nickname = nickname;
+    if (email) items.email = email;
+    if (phoneNumber) items.phoneNumber = phoneNumber;
+    if (type) items.type = type;
+    if (item.page !== 1) items.page = item.page;
+    return qs.stringify(items);
+  };
 
   return (
     <PaginationStyled
@@ -23,7 +47,7 @@ const Pagination = props => {
         return (
           <PaginationItem
             component={Link}
-            to={`/${link}${item.page === 1 ? '' : `?page=${item.page}`}`}
+            to={`/${link}?${handleLink(item)}`}
             {...item}
           />
         );

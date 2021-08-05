@@ -6,9 +6,9 @@ import {
   loadAccountList,
   removeAccount,
   changeSelect
-} from '../../../modules/account';
+} from '../../modules/account';
 
-import AccountDelete from '../../../components/Account/Table/AccountDelete';
+import AccountDelete from '../../components/Account/AccountDelete';
 
 const AccountDeleteContainer = () => {
   const [open, setOpen] = useState(false);
