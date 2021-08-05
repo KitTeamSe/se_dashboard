@@ -49,7 +49,7 @@ const AccountTableContainer = ({ location }) => {
   };
 
   const handleSelectAll = event => {
-    if (event.target.checked) {
+    if (event.target.checked && data) {
       const newSelects = data.data.content.map(e => e.idString);
       dispatch(changeSelect({ select: newSelects }));
       return;
