@@ -50,7 +50,7 @@ const Routers = () => (
     <Router exact to="">
       <TestPageMain />
     </Router>
-    <Router exact to="account">
+    <Router to="account">
       <TestAccountMainPage />
     </Router>
   </>

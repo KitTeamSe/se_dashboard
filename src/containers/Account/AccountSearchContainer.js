@@ -48,8 +48,7 @@ const AccountSearchContainer = props => {
     history.push(handleLink());
   };
 
-  const onReset = e => {
-    e.preventDefault();
+  const onReset = () => {
     dispatch(initializeField());
   };
 
@@ -59,16 +58,11 @@ const AccountSearchContainer = props => {
     handleClose();
   };
 
-  const isProperty = key => Object.prototype.hasOwnProperty.call(search, key);
+  // const isProperty = key => Object.prototype.hasOwnProperty.call(search, key);
 
   return (
     <AccountSearch
-      email={isProperty('email') && search.email}
-      name={isProperty('name') && search.name}
-      nickname={isProperty('nickname') && search.nickname}
-      phoneNumber={isProperty('phoneNumber') && search.phoneNumber}
-      studentId={isProperty('studentId') && search.studentId}
-      type={isProperty('type') && search.type}
+      search={search}
       open={open}
       onChange={onChange}
       onSubmit={onSubmit}

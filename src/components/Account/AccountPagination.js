@@ -11,7 +11,7 @@ const PaginationStyled = styled(Paginations)`
   }
 `;
 
-const Pagination = props => {
+const AccountPagination = props => {
   const {
     totalPage,
     page,
@@ -58,4 +58,4 @@ const Pagination = props => {
   );
 };
 
-export default Pagination;
+export default AccountPagination;

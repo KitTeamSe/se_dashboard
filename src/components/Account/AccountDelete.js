@@ -71,7 +71,7 @@ const DeleteAction = props => {
   );
 };
 
-const TableDelete = props => {
+const AccountDelete = props => {
   const { select, loading, error, open } = props;
   const { handleOpen, handleClose, onDelete } = props;
 
@@ -94,11 +94,11 @@ const TableDelete = props => {
       >
         <DialogTitle>회원 삭제</DialogTitle>
         <DeleteContent select={select} loading={loading} />
-        <ErrorMessage loading={loading} error={error} />
         <DeleteAction handleClose={handleClose} onDelete={onDelete} />
+        <ErrorMessage loading={loading} error={error} />
       </Dialog>
     </>
   );
 };
 
-export default TableDelete;
+export default AccountDelete;

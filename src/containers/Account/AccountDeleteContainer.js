@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Snackbar } from '@material-ui/core';
-import {
-  initialize,
-  loadAccountList,
-  removeAccount,
-  changeSelect
-} from '../../modules/account';
+import { initialize, removeAccount, changeSelect } from '../../modules/account';
 
 import AccountDelete from '../../components/Account/AccountDelete';
 
@@ -34,8 +29,6 @@ const AccountDeleteContainer = () => {
 
   useEffect(() => {
     if (data) {
-      const { direction, size, page } = { direction: 'ASC', size: 15, page: 1 };
-      dispatch(loadAccountList({ direction, size, page }));
       dispatch(changeSelect({ select: [] }));
       handleMessageOpen();
       handleClose();

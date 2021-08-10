@@ -12,8 +12,8 @@ export const accountData = [
 ];
 
 export const informationOpenAgreeEnum = {
-  AGREE: '🟢',
-  DISAGREE: '🔴'
+  AGREE: '🟢동의',
+  DISAGREE: '🔴비동의'
 };
 
 export const typeEnum = {

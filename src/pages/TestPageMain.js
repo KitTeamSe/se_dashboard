@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Typography } from '@material-ui/core';
+
 const drawerWidth = 0;
 const drawerHeight = 0;
 
@@ -28,8 +30,10 @@ const TestPageMain = () => (
     <Wrapper />
     <ContentWrapper>
       <ButtonWrapper />
-      <h1>메인입니다</h1>
-      <Link to="account">회원목록</Link>
+      <Typography>메인입니다</Typography>
+      <Typography>
+        <Link to="account">회원목록</Link>
+      </Typography>
     </ContentWrapper>
   </>
 );
